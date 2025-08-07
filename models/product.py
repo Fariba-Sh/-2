@@ -2,7 +2,7 @@ from sqlalchemy import *
 from extentions import *
 
 class Product(db.Model):
-    __tablename__ = "producs"
+    __tablename__ = "products"
     id = Column(Integer , primary_key=True , index=True)
     name = Column(String ,unique=True,nullable=False, index=True )
     description = Column(String,nullable=False, index=True)

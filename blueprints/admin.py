@@ -1,6 +1,7 @@
 from flask import Blueprint ,redirect,abort,render_template,session ,request
 import config
 
+from models.cart import Cart
 
 app = Blueprint("admin" , __name__)
 
@@ -24,3 +25,11 @@ def login():
         
     else:
         return render_template("admin/login.html")
+
+
+@app.route('/admin/dashboard' , methods = ["GET"])
+def dashboard_admin():
+    carts = Cart.query.filter(Cart.status != 'pending').all()
+    return render_template("admin/dashboard.html" , carts = carts)
+
+

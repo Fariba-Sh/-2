@@ -2,6 +2,12 @@ from flask import Flask
 from extentions import*
 import config
 
+from models.user import User
+from models.cart import Cart
+from models.product import Product
+from models.cart_item import CartItem
+
+
 from blueprints.general import app as general
 from blueprints.admin import app as admin
 from blueprints.user import app as user
