@@ -1,6 +1,7 @@
 from flask import Flask
 from extentions import*
 import config
+from flask_wtf import CSRFProtect
 
 from models.user import User
 from models.cart import Cart
@@ -22,6 +23,10 @@ app.register_blueprint(user)
 app.config["SQLALCHEMY_DATABASE_URI"] = config.SQLALCHEMY_DATABASE_URI
 app.config["SECRET_KEY"] = config.SECRET_KEY
 db.init_app(app)
+
+
+csrf = CSRFProtect(app)
+
 
 with app.app_context():
     db.create_all()

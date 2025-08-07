@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+    
+{% block header %}
+<title> ورود ادمین</title>
+{% endblock %}
+
+{% block body %}
+
+    <h2>ورد به پنل مدیریت</h2>
+    <form action="#" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="text" name="username" placeholder="نام کاربری" required>
+        <input type="password" name="password" placeholder="رمز عبور " required>
+        <button type="submit">ورود</button>
+    </form>
+{% endblock %}

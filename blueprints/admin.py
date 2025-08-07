@@ -1,4 +1,4 @@
-from flask import Blueprint ,redirect,abort,render_template,session ,request
+from flask import Blueprint,flash ,redirect,abort,render_template,session ,request
 import config
 
 from models.cart import Cart
@@ -7,12 +7,12 @@ app = Blueprint("admin" , __name__)
 
 @app.before_request
 def before_request():
-    if session.get('admin_login' , None) == None and request.endpoint != "admin_login":
+    if session.get('admin_login' , None) == None and request.endpoint != "admin.admin_login":
         abort(403)
 
 
 @app.route('/admin' , methods=["POST", "GET"])
-def login():
+def admin_login():
     if request.method == "POST":
         username = request.form.get("username" , None)
         password = request.form.get("password",None)
@@ -33,3 +33,8 @@ def dashboard_admin():
     return render_template("admin/dashboard.html" , carts = carts)
 
 
+@app.route('/admin/logout', methods = ['GET'])
+def logout():
+    session.pop('admin_login',None)
+    flash('با موفقیت خارج شدید')
+    return redirect('/admin')
