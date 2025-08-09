@@ -3,7 +3,7 @@ import config
 from extentions import db
 
 from models.cart import Cart
-from models.product import Product
+from models.product import *
 
 app = Blueprint("admin" , __name__)
 
@@ -42,32 +42,22 @@ def logout():
     return redirect('/admin')
 
 
-@app.route('/admin/dashboard/order/<id>' , methods = ["GET" , "POST"])
-def order(id):
-    cart = Cart.query.filter(Cart.id == id).first_or_404()
-    if request.method == "GET":
-        return render_template("admin/order.html" , cart = cart)
-    else:
-        status = request.form.get('status')
-        cart.status = status
-        db.session.commit()
-        flash ('وضعیت سفارش با موفقیت تغییر کرد')
-        return redirect(url_for('admin.order', id = id))
 
 
-@app.route('/admin/dashboard/products' , methods = ["GET" ,"POST"])
+@app.route('/admin/dashboard/products' ,methods = ["GET" ,"POST"])
 def products():
     if request.method == "GET":
         products = Product.query.all()
-        return render_template('admin/products.html' , products = products)
-    else :
-        name = request.form.get('name',None)
-        description = request.form.get('description' ,None)
-        price = request.form.get('price',None)
-        active = request.form.get('active' , None)
-        file = request.files.get('cover, None')
+        # محصوللات رو به ادمین نشون میده
+        return render_template ("admin/products.html",products = products)
+    else:
+        name = request.form.get('name', None)
+        description = request.form.get('description', None)
+        price = request.form.get('price', None)
+        active = request.form.get('active', None)
+        file = request.form.get('cover', None)
 
-        p = Product(name = name , description = description , price = price)
+        p = Product(name = name , description = description, price = price)
         if active == None:
             p.active = 0
         else:
@@ -78,23 +68,22 @@ def products():
 
         file.save(f'static/cover/{p.id}.jpg')
         flash("محصول جدید اضافه شد")
-        return "done"
+        return 'done'
     
 
 
-@app.route('/admin/dashboard/edit-product/<id>' , methods = ["GET" ,"POST"])
+@app.route('/admin/dashboard/edit-product/<id>',methods = ["GET" ,"POST"] ) 
 def edit_product(id):
     product = Product.query.filter(Product.id == id).first_or_404()
 
     if request.method == "GET":
         return render_template("admin/edit-product.html" , product = product)
     else:
-        name = request.form.get('name', None)
-        description = request.form.get('description', None)
-        price = request.form.get('price', None)
-        active = request.form.get('active', None)
-        file = request.files.get('cover',None)
-
+        name = request.form.get('name' , None)
+        description = request.form.get('description' , None)
+        price = request.form.get('price' , None)
+        active = request.form.get('active' , None)
+        file = request.form.get('cover' , None)
 
         product.name = name
         product.description = description

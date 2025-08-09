@@ -12,11 +12,11 @@
     <img style="width: 200px; display: block; margin: auto;" src="/static/cover/{{product.id}}.jpg">
     <form action="#" method="post" enctype="multipart/form-data">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-        <input type="file" name="cover">
-        <input type="text" name="name" value="{{product.name}}" placeholder="نام محصول">
-        <textarea name="description" placeholder="توضیحات" >{{product.description}}</textarea>
-        <input type="number" name="price" value="{{product.price}}" placeholder="قیمت محصول" >
-        <div style="display: flex; justify-content: center;">
+        <input type="file" name="cover"><br>
+        <input type="text" name="name" value="{{product.name}}" placeholder="نام محصول"><br>
+        <textarea name="description" placeholder="توضیحات" >{{product.description}}</textarea><br>
+        <input type="number" name="price" value="{{product.price}}" placeholder="قیمت محصول" ><br>
+        <div style="display: flex; justify-content: center;"><br>
         <label>فعال:</label>
         <input style="margin: 5px;" type="checkbox" name="active"  {{'checked' if product.active == 1}}>
         </div>
