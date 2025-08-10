@@ -44,20 +44,20 @@ def logout():
 
 
 
-@app.route('/admin/dashboard/products' ,methods = ["GET" ,"POST"])
+@app.route('/admin/dashboard/products' , methods = ["GET" ,"POST"])
 def products():
     if request.method == "GET":
         products = Product.query.all()
-        # محصوللات رو به ادمین نشون میده
-        return render_template ("admin/products.html",products = products)
+        return render_template("admin/products.html" , products = products)
     else:
         name = request.form.get('name', None)
         description = request.form.get('description', None)
         price = request.form.get('price', None)
         active = request.form.get('active', None)
-        file = request.form.get('cover', None)
+        file = request.files.get('cover',None)
 
-        p = Product(name = name , description = description, price = price)
+
+        p = Product(name= name , description = description , price = price)
         if active == None:
             p.active = 0
         else:
@@ -67,23 +67,23 @@ def products():
         db.session.commit()
 
         file.save(f'static/cover/{p.id}.jpg')
-        flash("محصول جدید اضافه شد")
-        return 'done'
+        flash("محصول جدید اضافه شد ")
+        return "done"
     
 
-
-@app.route('/admin/dashboard/edit-product/<id>',methods = ["GET" ,"POST"] ) 
+@app.route('/admin/dashboard/edit-product/<id>' , methods = ["GET" ,"POST"])
 def edit_product(id):
     product = Product.query.filter(Product.id == id).first_or_404()
 
     if request.method == "GET":
         return render_template("admin/edit-product.html" , product = product)
     else:
-        name = request.form.get('name' , None)
-        description = request.form.get('description' , None)
-        price = request.form.get('price' , None)
-        active = request.form.get('active' , None)
-        file = request.form.get('cover' , None)
+        name = request.form.get('name', None)
+        description = request.form.get('description', None)
+        price = request.form.get('price', None)
+        active = request.form.get('active', None)
+        file = request.files.get('cover',None)
+
 
         product.name = name
         product.description = description
