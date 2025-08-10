@@ -7,4 +7,10 @@
 
 {% block body %}
 <h1>این پیج اصلیه</h1>
+    <section class="products">
+        {% for p in products %}
+           {% include 'parts/product-box.html' %}
+        {% endfor %}
+    </section>
+
 {% endblock %}
