@@ -1,6 +1,6 @@
 from flask import Blueprint,render_template, request
 from models.product import Product
-
+from sqlalchemy import func
 
 app = Blueprint("general" , __name__)
 

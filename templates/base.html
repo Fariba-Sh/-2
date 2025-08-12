@@ -19,6 +19,15 @@
     {% block body %}
     {% endblock %}
 
+
+    <script>
+        const prices = document.getElementsByClassName('price')
+        for( let i =0; i< prices.length; i++){
+            let price = prices[i]
+            price.innerText = parseInt(price.innerText).toLocaleString() + " تومان " 
+        }
+    </script>
+
     <!-- پیام فلش برای چند لحظه -->
     <script type="module">
          import { Eggy } from '{{url_for('static', filename = 'js/eggy.js')}}';
