@@ -15,7 +15,7 @@ def main():
 
     products = products.order_by(Product.price.desc()).all()
 
-    return render_template("main.html" , products = products , search = search)
+    return render_template("index.html" , products = products , search = search)
 
 
 @app.route('/products/<int:id>/<name>')
